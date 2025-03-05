@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Negra Hermosa - Laura ❤️</title>
+    <style>
+        body {
+            background-color: #ffccdc;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .mensaje {
+            font-size: 24px;
+            color: #d63384;
+            text-align: center;
+            opacity: 0;
+            animation: aparecer 2s ease-in-out forwards;
+            margin: 20px;
+        }
+        @keyframes aparecer {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .imagenes {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .imagen, .imagen2 {
+            width: 250px;
+            height: auto;
+            border-radius: 15px;
+            opacity: 0;
+            animation: aparecerImagen 2s ease-in-out 2s forwards;
+        }
+        @keyframes aparecerImagen {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        /* Animación de latido para la primera imagen */
+        .imagen {
+            animation: aparecerImagen 2s ease-in-out 2s forwards, latido 1.5s infinite;
+        }
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        /* Efecto sutil para la segunda imagen */
+        .imagen2 {
+            animation: aparecerImagen 2s ease-in-out 2s forwards, oscilacion 3s ease-in-out infinite;
+        }
+        @keyframes oscilacion {
+            0% { transform: rotate(0deg) scale(1); opacity: 1; }
+            25% { transform: rotate(5deg) scale(1.05); opacity: 0.95; }
+            50% { transform: rotate(0deg) scale(1); opacity: 1; }
+            75% { transform: rotate(-5deg) scale(0.95); opacity: 0.95; }
+            100% { transform: rotate(0deg) scale(1); opacity: 1; }
+        }
+        .corazon {
+            position: absolute;
+            color: red;
+            font-size: 30px;
+            animation: flotar 5s linear infinite;
+        }
+        @keyframes flotar {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-100px) scale(1.2); opacity: 0.7; }
+            100% { transform: translateY(-200px) scale(1); opacity: 0; }
+        }
+        .play-button {
+            position: absolute;
+            bottom: 20px;
+            background-color: #d63384;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mensaje" id="mensaje">
+        Eres lo mejor que me ha pasado ❤️ <br>
+        Siempre te llevaré en mi corazón a pesar de las situaciones que nos pone la vida, eres mi mayor sueño.<br>
+        Te quiero un montón, Laura... ❤️
+    </div>
+    <div class="imagenes">
+        <img src="una.jpeg" alt="Nosotros" class="imagen" id="imagen">
+        <img src="dos.jpeg" alt="Nosotros 2" class="imagen2" id="imagen2">
+    </div>
+    <audio id="audio" autoplay loop>
+        <source src="duele_el_corazon.mp3" type="audio/mp3">
+        Tu navegador no soporta audio.
+    </audio>
+    <button id="playButton" class="play-button">Reproducir Música</button>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const audioElement = document.getElementById("audio");
+            const playButton = document.getElementById("playButton");
+
+            // Intenta reproducir el audio; si se bloquea, muestra el botón.
+            audioElement.play().catch(function(error) {
+                console.log("Autoplay bloqueado:", error);
+                playButton.style.display = "block";
+            });
+
+            playButton.addEventListener("click", function() {
+                audioElement.play();
+                playButton.style.display = "none";
+            });
+
+            function crearCorazon() {
+                const corazon = document.createElement("div");
+                corazon.classList.add("corazon");
+                corazon.innerHTML = "❤️";
+                document.body.appendChild(corazon);
+                corazon.style.left = Math.random() * 100 + "vw";
+                corazon.style.top = "100vh";
+                corazon.style.animationDuration = Math.random() * 2 + 3 + "s";
+                setTimeout(() => { corazon.remove(); }, 5000);
+            }
+            setInterval(crearCorazon, 500);
+        });
+    </script>
+</body>
+</html>
